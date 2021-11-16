@@ -7,11 +7,15 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.example.shoppinglist.adapter.ItemAdapter
+import com.example.shoppinglist.data.Item
 import com.example.shoppinglist.databinding.ActivityScrollingBinding
 
-class ScrollingActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScrollingBinding
+
+    lateinit var itemAdapter: ItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,9 @@ class ScrollingActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
+        itemAdapter = ItemAdapter(this)
+        binding.rvItems.adapter = itemAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -42,5 +49,9 @@ class ScrollingActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun showEditTodoDialog(item: Item, adapterPosition: Int) {
+
     }
 }

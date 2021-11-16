@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/asus/Desktop/Studies/Mobile&amp;WebDev/ShoppingListApp/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.1" />
+        <entry key="..\:/Users/asus/Desktop/Studies/Mobile&amp;WebDev/ShoppingListApp/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.1" />
+        <entry key="..\:/Users/asus/Desktop/Studies/Mobile&amp;WebDev/ShoppingListApp/app/src/main/res/layout/activity_scrolling.xml" value="0.1" />
         <entry key="..\:/Users/asus/Desktop/Studies/Mobile&amp;WebDev/ShoppingListApp/app/src/main/res/layout/content_scrolling.xml" value="0.22" />
+        <entry key="..\:/Users/asus/Desktop/Studies/Mobile&amp;WebDev/ShoppingListApp/app/src/main/res/layout/item_row.xml" value="0.22" />
       </map>
     </option>
   </component>
