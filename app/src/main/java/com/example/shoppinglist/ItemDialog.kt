@@ -109,7 +109,7 @@ class ItemDialog : DialogFragment() {
                 etItemDescription.text.toString(),
                 spinnerCategory.selectedItemPosition,
                 etItemPrice.text.toString().toInt(),
-                false
+                cbItemStatus.isChecked
             )
         )
     }

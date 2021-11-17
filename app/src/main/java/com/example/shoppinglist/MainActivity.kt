@@ -7,14 +7,15 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.shoppinglist.adapter.ItemAdapter
+import com.example.shoppinglist.data.AppDatabase
 import com.example.shoppinglist.data.Item
 import com.example.shoppinglist.databinding.ActivityScrollingBinding
 
 class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
 
     private lateinit var binding: ActivityScrollingBinding
-
     lateinit var itemAdapter: ItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +32,18 @@ class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
             ItemDialog().show(supportFragmentManager, "Dialog")
         }
 
-        itemAdapter = ItemAdapter(this)
-        binding.rvItems.adapter = itemAdapter
+        Thread{
+            var items = AppDatabase.getInstance(this).itemDao().getAllItems()
+
+            runOnUiThread{
+                itemAdapter = ItemAdapter(this, items)
+                binding.rvItems.adapter = itemAdapter
+
+                val itemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+                binding.rvItems.addItemDecoration(itemDecoration)
+            }
+        }.start()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -57,7 +68,13 @@ class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
     }
 
     override fun itemCreated(item: Item) {
-        itemAdapter.addItem(item)
+        Thread{
+            item.itemID = AppDatabase.getInstance(this).itemDao().insertItem(item)
+
+            runOnUiThread {
+                itemAdapter.addItem(item)
+            }
+        }.start()
     }
 
     override fun itemUpdated(item: Item) {

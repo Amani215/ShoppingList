@@ -4,21 +4,24 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppinglist.MainActivity
 import com.example.shoppinglist.R
+import com.example.shoppinglist.data.AppDatabase
 import com.example.shoppinglist.data.Item
 import com.example.shoppinglist.databinding.ItemRowBinding
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
     var items = mutableListOf<Item>(
-        Item(null,"Bananas","2",0,200,false),
+        /*Item(null,"Bananas","2",0,200,false),
         Item(null,"Apples","4",0,500,true),
-        Item(null,"Car","1",1,1000,false)
+        Item(null,"Car","1",1,1000,false)*/
     )
     val context: Context
 
-    constructor(context: Context) {
+    constructor(context: Context, items: List<Item>) {
         this.context = context
+        this.items.addAll(items)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,6 +40,13 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         holder.binding.tvPrice.text = currentItem.estimatedPrice.toString()+"HUF"
         holder.binding.cbStatus.isChecked = currentItem.status
 
+        holder.binding.cbStatus.setOnClickListener {
+            items[holder.adapterPosition].status = holder.binding.cbStatus.isChecked
+            Thread{
+                AppDatabase.getInstance(context).itemDao().updateItem(items[holder.adapterPosition])
+            }.start()
+        }
+
         holder.binding.ibDelete.setOnClickListener {
             deleteItem(holder.adapterPosition)
         }
@@ -53,8 +63,15 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     }
 
     private fun deleteItem(position: Int) {
-        items.removeAt(position)
-        notifyItemRemoved(position)
+        Thread{
+            AppDatabase.getInstance(context).itemDao().deleteItem(items.get(position))
+
+            (context as MainActivity).runOnUiThread{
+                items.removeAt(position)
+                notifyItemRemoved(position)
+            }
+        }.start()
+
     }
 
     public fun addItem(item: Item) {
@@ -68,12 +85,12 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     }
 
     inner class ViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        val tvName = binding.tvName
+        /*val tvName = binding.tvName
         val tvDescription = binding.tvDescription
         val ivIcon = binding.ivIcon
         val tvPrice = binding.tvPrice
         val cbStatus = binding.cbStatus
         val ibDelete = binding.ibDelete
-        val ibEdit = binding.ibEdit
+        val ibEdit = binding.ibEdit*/
     }
 }
