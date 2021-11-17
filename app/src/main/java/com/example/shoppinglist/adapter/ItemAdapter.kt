@@ -11,9 +11,9 @@ import com.example.shoppinglist.databinding.ItemRowBinding
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
     var items = mutableListOf<Item>(
-        Item(null,"Bananas","2",0,false),
-        Item(null,"Apples","4",0,true),
-        Item(null,"Car","1",1,false)
+        Item(null,"Bananas","2",0,200,false),
+        Item(null,"Apples","4",0,500,true),
+        Item(null,"Car","1",1,1000,false)
     )
     val context: Context
 
@@ -30,20 +30,25 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentTodo = items[position]
+        val currentItem = items[position]
 
-        holder.binding.tvDate.text = currentTodo.name
-        holder.binding.cbDone.text = currentTodo.description
-        holder.binding.cbDone.isChecked = currentTodo.status
+        holder.binding.tvName.text = currentItem.name
+        holder.binding.tvDescription.text = currentItem.description
+        holder.binding.tvPrice.text = currentItem.estimatedPrice.toString()+"HUF"
+        holder.binding.cbStatus.isChecked = currentItem.status
 
-        holder.binding.btnDelete.setOnClickListener {
+        holder.binding.ibDelete.setOnClickListener {
             deleteItem(holder.adapterPosition)
         }
 
         if (items[holder.adapterPosition].category == 0) {
-            holder.binding.ivIcon.setImageResource(R.mipmap.ic_launcher)
+            holder.binding.ivIcon.setImageResource(R.drawable.food)
         } else if (items[holder.adapterPosition].category == 1) {
-            //holder.binding.ivIcon.setImageResource(R.drawable.todohead)
+            holder.binding.ivIcon.setImageResource(R.drawable.electronics)
+        } else if (items[holder.adapterPosition].category == 2) {
+            holder.binding.ivIcon.setImageResource(R.drawable.book)
+        } else if (items[holder.adapterPosition].category == 3) {
+            holder.binding.ivIcon.setImageResource(R.drawable.other)
         }
     }
 
@@ -52,8 +57,8 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         notifyItemRemoved(position)
     }
 
-    public fun addItem(todo: Item) {
-        items.add(todo)
+    public fun addItem(item: Item) {
+        items.add(item)
         notifyItemInserted(items.lastIndex)
     }
 
@@ -63,10 +68,12 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     }
 
     inner class ViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        val tvDate = binding.tvDate
-        val cbDone = binding.cbDone
-        val btnDelete = binding.btnDelete
-        val btnEdit = binding.btnEdit
+        val tvName = binding.tvName
+        val tvDescription = binding.tvDescription
         val ivIcon = binding.ivIcon
+        val tvPrice = binding.tvPrice
+        val cbStatus = binding.cbStatus
+        val ibDelete = binding.ibDelete
+        val ibEdit = binding.ibEdit
     }
 }

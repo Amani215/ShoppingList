@@ -5,5 +5,6 @@ data class Item(
     var name: String,
     var description: String,
     var category: Int,
+    var estimatedPrice: Int,
     var status: Boolean
 )

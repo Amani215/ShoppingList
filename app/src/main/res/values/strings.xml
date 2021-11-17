@@ -2,7 +2,8 @@
     <string name="app_name">ShoppingList</string>
     <string-array name="categories">
         <item>Food</item>
-        <item>Cleaning items</item>
+        <item>Electronics</item>
+        <item>Books</item>
         <item>Other</item>
     </string-array>
     <string name="large_text">

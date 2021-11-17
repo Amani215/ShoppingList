@@ -20,6 +20,7 @@ class ItemDialog : DialogFragment() {
     lateinit var etItemDescription: EditText
     lateinit var cbItemStatus: CheckBox
     lateinit var spinnerCategory: Spinner
+    lateinit var etItemPrice: EditText
 
     interface ItemHandler{
         fun itemCreated(item: Item)
@@ -49,6 +50,7 @@ class ItemDialog : DialogFragment() {
         etItemDescription = dialogBinding.etItemDescription
         cbItemStatus = dialogBinding.cbItemStatus
         spinnerCategory = dialogBinding.spinnerCategory
+        etItemPrice = dialogBinding.etItemPrice
 
         var categoryAdapter = ArrayAdapter.createFromResource(
             requireContext()!!,
@@ -106,6 +108,7 @@ class ItemDialog : DialogFragment() {
                 etItemName.text.toString(),
                 etItemDescription.text.toString(),
                 spinnerCategory.selectedItemPosition,
+                etItemPrice.text.toString().toInt(),
                 false
             )
         )
