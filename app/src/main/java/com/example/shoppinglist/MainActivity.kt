@@ -11,7 +11,7 @@ import com.example.shoppinglist.adapter.ItemAdapter
 import com.example.shoppinglist.data.Item
 import com.example.shoppinglist.databinding.ActivityScrollingBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
 
     private lateinit var binding: ActivityScrollingBinding
 
@@ -26,8 +26,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         binding.toolbarLayout.title = title
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()*/
+            ItemDialog().show(supportFragmentManager, "Dialog")
         }
 
         itemAdapter = ItemAdapter(this)
@@ -53,5 +54,13 @@ class MainActivity : AppCompatActivity() {
 
     fun showEditTodoDialog(item: Item, adapterPosition: Int) {
 
+    }
+
+    override fun itemCreated(item: Item) {
+        itemAdapter.addItem(item)
+    }
+
+    override fun itemUpdated(item: Item) {
+        TODO("Not yet implemented")
     }
 }
