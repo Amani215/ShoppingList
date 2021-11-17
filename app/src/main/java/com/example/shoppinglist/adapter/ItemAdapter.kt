@@ -1,9 +1,12 @@
 package com.example.shoppinglist.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppinglist.ItemDetails
 import com.example.shoppinglist.MainActivity
 import com.example.shoppinglist.R
 import com.example.shoppinglist.data.AppDatabase
@@ -49,6 +52,13 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
         holder.binding.ibDelete.setOnClickListener {
             deleteItem(holder.adapterPosition)
+        }
+
+        holder.binding.ibDetails.setOnClickListener{
+            var intent = Intent()
+            intent.setClass(context,ItemDetails::class.java)
+            intent.putExtra("itemId",items[holder.adapterPosition])
+            startActivity(context,intent,null)
         }
 
         if (items[holder.adapterPosition].category == 0) {

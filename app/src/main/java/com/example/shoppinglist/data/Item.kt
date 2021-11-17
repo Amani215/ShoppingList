@@ -13,4 +13,4 @@ data class Item(
     @ColumnInfo(name = "CategoryNum") var category: Int,
     @ColumnInfo(name = "EstimatedPrice") var estimatedPrice: Int,
     @ColumnInfo(name = "Status") var status: Boolean
-)
+): Serializable
