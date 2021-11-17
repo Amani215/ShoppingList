@@ -79,9 +79,9 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         notifyItemInserted(items.lastIndex)
     }
 
-    public fun updateItem(item: Item, editIndex: Int) {
-        items.set(editIndex, item)
-        notifyItemChanged(editIndex)
+    public fun deleteAllItems(){
+        items.removeAll(items)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -90,7 +90,6 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         val ivIcon = binding.ivIcon
         val tvPrice = binding.tvPrice
         val cbStatus = binding.cbStatus
-        val ibDelete = binding.ibDelete
-        val ibEdit = binding.ibEdit*/
+        val ibDelete = binding.ibDelete*/
     }
 }

@@ -24,7 +24,6 @@ class ItemDialog : DialogFragment() {
 
     interface ItemHandler{
         fun itemCreated(item: Item)
-        fun itemUpdated(item: Item)
     }
 
     lateinit var itemHandler: ItemHandler
@@ -65,8 +64,6 @@ class ItemDialog : DialogFragment() {
 
         dialogBuilder.setView(dialogBinding.root)
 
-        val arguments = this.arguments
-
         dialogBuilder.setPositiveButton("Ok") {
                 dialog, which ->
         }
@@ -83,9 +80,7 @@ class ItemDialog : DialogFragment() {
         val positiveButton = (dialog as AlertDialog).getButton(Dialog.BUTTON_POSITIVE)
         positiveButton.setOnClickListener {
             if (etItemName.text.isNotEmpty()) {
-                val arguments = this.arguments
-                    handleItemCreate()
-
+                handleItemCreate()
                 dialog!!.dismiss()
             } else {
                 etItemName.error = "This field can not be empty"

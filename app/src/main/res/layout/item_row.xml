@@ -71,22 +71,24 @@
 
                 <ImageButton
                     android:id="@+id/ibDelete"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@android:drawable/ic_menu_close_clear_cancel"
+                    android:background="@drawable/close"
                     android:backgroundTint="@color/design_default_color_error"
                     android:contentDescription="Delete item"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:layout_gravity="center"/>
 
                 <ImageButton
-                    android:id="@+id/ibEdit"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@android:drawable/ic_menu_edit"
-                    android:backgroundTint="@color/design_default_color_secondary"
+                    android:id="@+id/ibDetails"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/details"
+                    android:backgroundTint="@color/black"
+                    android:contentDescription="Edit item"
                     tools:ignore="SpeakableTextPresentCheck"
-                    android:contentDescription="Edit item"/>
+                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.shoppinglist.adapter.ItemAdapter
 import com.example.shoppinglist.data.AppDatabase
@@ -58,13 +59,13 @@ class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
         // as you specify a parent activity in AndroidManifest.xml.
 
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_details -> {
+                deleteAllItems()
+                Toast.makeText(applicationContext, "List deleted", Toast.LENGTH_LONG).show()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    fun showEditTodoDialog(item: Item, adapterPosition: Int) {
-
     }
 
     override fun itemCreated(item: Item) {
@@ -77,7 +78,13 @@ class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
         }.start()
     }
 
-    override fun itemUpdated(item: Item) {
-        TODO("Not yet implemented")
+    fun deleteAllItems(){
+        Thread{
+            AppDatabase.getInstance(this).itemDao().deleteAllItems()
+
+            runOnUiThread{
+                itemAdapter.deleteAllItems()
+            }
+        }.start()
     }
 }
