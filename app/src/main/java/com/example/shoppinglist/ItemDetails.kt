@@ -29,8 +29,15 @@ class ItemDetails : AppCompatActivity() {
 
         binding.tvNameDetail.setText(item.name)
         binding.tvDescriptionDetail.setText(item.description)
-        binding.tvCategoryDetail.setText(item.category.toString())
-        binding.tvStatusDetail.setText(item.status.toString())
+
+        val categories = resources.getStringArray(R.array.categories).toList()
+        binding.tvCategoryDetail.setText(categories.get(item.category).toString())
+
+        if(item.status)
+            binding.tvStatusDetail.setText("Purchased")
+        else
+            binding.tvStatusDetail.setText("Not purchased yet")
+
         binding.tvPriceDetail.setText(itemPrice.toString()+" HUF")
 
         val retrofit = Retrofit.Builder()
@@ -53,22 +60,22 @@ class ItemDetails : AppCompatActivity() {
 
                 override fun onResponse(call: Call<MoneyResult>, response: Response<MoneyResult>) {
                     var cadRate: Double? = response.body()?.rates?.CAD?.toDouble()
-                    var priceInCAD = itemPrice * cadRate!!
+                    var priceInCAD = String.format("%.3f", itemPrice * cadRate!! )
 
-                    binding.tvPriceDetail.append("\n"+priceInCAD.toString()+" CAD")
-                    binding.tvResult.append("CAD: "+cadRate.toString()+"\n")
+                    binding.tvPriceDetail.append("\n"+priceInCAD+" CAD")
+                    binding.tvResult.append("CAD: "+cadRate+"\n")
 
                     var eurRate: Double? = response.body()?.rates?.EUR?.toDouble()
-                    var priceInEUR = itemPrice * eurRate!!
+                    var priceInEUR = String.format("%.3f", itemPrice * eurRate!! )
 
-                    binding.tvPriceDetail.append("\n"+priceInEUR.toString()+" EUR")
-                    binding.tvResult.append("EUR: "+eurRate.toString()+"\n")
+                    binding.tvPriceDetail.append("\n"+priceInEUR+" EUR")
+                    binding.tvResult.append("EUR: "+eurRate+"\n")
 
                     var jpyRate: Double? = response.body()?.rates?.JPY?.toDouble()
-                    var priceInJPY = itemPrice * jpyRate!!
+                    var priceInJPY = String.format("%.3f", itemPrice * jpyRate!! )
 
-                    binding.tvPriceDetail.append("\n"+priceInJPY.toString()+" JPY")
-                    binding.tvResult.append("JPY: "+jpyRate.toString()+"\n")
+                    binding.tvPriceDetail.append("\n"+priceInJPY+" JPY")
+                    binding.tvResult.append("JPY: "+jpyRate+"\n")
                 }
             })
         }

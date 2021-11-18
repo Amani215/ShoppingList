@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
-                android:text="Name"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </TableRow>
@@ -53,7 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
-                android:text="description"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </TableRow>
@@ -74,7 +72,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
-                android:text="category"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </TableRow>
@@ -95,7 +92,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
-                android:text="status"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </TableRow>
