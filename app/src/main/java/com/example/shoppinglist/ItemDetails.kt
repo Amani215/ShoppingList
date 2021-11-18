@@ -1,9 +1,7 @@
 package com.example.shoppinglist
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.shoppinglist.data.AppDatabase
 import com.example.shoppinglist.data.Item
 import com.example.shoppinglist.databinding.ItemDetailsBinding
 import com.example.shoppinglist.retrofitConversion.MoneyAPI
@@ -13,7 +11,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 class ItemDetails : AppCompatActivity() {
     private lateinit var  binding: ItemDetailsBinding
@@ -30,9 +27,11 @@ class ItemDetails : AppCompatActivity() {
         binding.tvNameDetail.setText(item.name)
         binding.tvDescriptionDetail.setText(item.description)
 
+        //Find the category name
         val categories = resources.getStringArray(R.array.categories).toList()
         binding.tvCategoryDetail.setText(categories.get(item.category).toString())
 
+        //Status of the item
         if(item.status)
             binding.tvStatusDetail.setText("Purchased")
         else
@@ -48,6 +47,7 @@ class ItemDetails : AppCompatActivity() {
         val currencyAPI = retrofit.create(MoneyAPI::class.java)
 
         binding.btnGetRates.setOnClickListener {
+            //To prevent infinite appending
             binding.tvResult.setText("")
             binding.tvPriceDetail.setText(itemPrice.toString()+" HUF")
 
@@ -59,18 +59,21 @@ class ItemDetails : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<MoneyResult>, response: Response<MoneyResult>) {
-                    var cadRate: Double? = response.body()?.rates?.CAD?.toDouble()
-                    var priceInCAD = String.format("%.3f", itemPrice * cadRate!! )
-
-                    binding.tvPriceDetail.append("\n"+priceInCAD+" CAD")
-                    binding.tvResult.append("CAD: "+cadRate+"\n")
-
+                    //HUF to EUR
                     var eurRate: Double? = response.body()?.rates?.EUR?.toDouble()
                     var priceInEUR = String.format("%.3f", itemPrice * eurRate!! )
 
                     binding.tvPriceDetail.append("\n"+priceInEUR+" EUR")
                     binding.tvResult.append("EUR: "+eurRate+"\n")
 
+                    //HUF to CAD
+                    var cadRate: Double? = response.body()?.rates?.CAD?.toDouble()
+                    var priceInCAD = String.format("%.3f", itemPrice * cadRate!! )
+
+                    binding.tvPriceDetail.append("\n"+priceInCAD+" CAD")
+                    binding.tvResult.append("CAD: "+cadRate+"\n")
+
+                    //HUF to JPY
                     var jpyRate: Double? = response.body()?.rates?.JPY?.toDouble()
                     var priceInJPY = String.format("%.3f", itemPrice * jpyRate!! )
 

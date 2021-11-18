@@ -15,12 +15,14 @@ import com.example.shoppinglist.databinding.ItemRowBinding
 
 class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
+    inner class ViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {}
+
+    val context: Context
     var items = mutableListOf<Item>(
         /*Item(null,"Bananas","2",0,200,false),
         Item(null,"Apples","4",0,500,true),
         Item(null,"Car","1",1,1000,false)*/
     )
-    val context: Context
 
     constructor(context: Context, items: List<Item>) {
         this.context = context
@@ -61,6 +63,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             startActivity(context,intent,null)
         }
 
+        //setting the category logo
         if (items[holder.adapterPosition].category == 0) {
             holder.binding.ivIcon.setImageResource(R.drawable.food)
         } else if (items[holder.adapterPosition].category == 1) {
@@ -92,14 +95,5 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     public fun deleteAllItems(){
         items.removeAll(items)
         notifyDataSetChanged()
-    }
-
-    inner class ViewHolder(val binding: ItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        /*val tvName = binding.tvName
-        val tvDescription = binding.tvDescription
-        val ivIcon = binding.ivIcon
-        val tvPrice = binding.tvPrice
-        val cbStatus = binding.cbStatus
-        val ibDelete = binding.ibDelete*/
     }
 }

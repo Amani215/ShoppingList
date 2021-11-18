@@ -1,14 +1,10 @@
 package com.example.shoppinglist
 
 import android.os.Bundle
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.shoppinglist.adapter.ItemAdapter
 import com.example.shoppinglist.data.AppDatabase
@@ -29,8 +25,6 @@ class MainActivity : AppCompatActivity(), ItemDialog.ItemHandler{
         setSupportActionBar(findViewById(R.id.toolbar))
         binding.toolbarLayout.title = title
         binding.fab.setOnClickListener { view ->
-            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()*/
             ItemDialog().show(supportFragmentManager, "Dialog")
         }
 
